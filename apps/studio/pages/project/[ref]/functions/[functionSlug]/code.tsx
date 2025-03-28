@@ -164,13 +164,17 @@ const CodePage = () => {
 
   useEffect(() => {
     // Set files from API response when available
-    if (selectedFunction && functionFiles) {
+    if (selectedFunction.entrypoint_path && functionFiles) {
       // ignore empty files
       // and then set file paths relative to entrypoint
       const base_path = getBasePath(selectedFunction.entrypoint_path)
       const filesWithRelPath = functionFiles
         .filter((file: { name: string; content: string }) => !!file.content.length)
         .map((file: { name: string; content: string }) => {
+          if (!file.name.startsWith(base_path)) {
+            return file
+          }
+
           file.name = relative(base_path, file.name)
           return file
         })
