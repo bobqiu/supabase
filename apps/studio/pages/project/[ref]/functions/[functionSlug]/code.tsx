@@ -2,7 +2,7 @@ import { AlertCircle, CornerDownLeft, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { dirname, relative } from '@std/path/posix'
+import { dirname, common, relative } from '@std/path/posix'
 
 import LogoLoader from '@ui/components/LogoLoader'
 import { useParams } from 'common'
@@ -39,7 +39,6 @@ const CodePage = () => {
   } = useEdgeFunctionBodyQuery({
     projectRef: ref,
     slug: functionSlug,
-    entrypoint: selectedFunction?.entrypoint
   })
   const [files, setFiles] = useState<
     { id: number; name: string; content: string; selected?: boolean }[]
@@ -172,6 +171,11 @@ const CodePage = () => {
       const filesWithRelPath = functionFiles
         .filter((file: { name: string; content: string }) => !!file.content.length)
         .map((file: { name: string; content: string }) => {
+          const common_path = common([base_path, file.name])
+          if (common_path === "" || common_path ==="/tmp/") {
+            return file.name
+          }
+
           file.name = relative(base_path, file.name)
           return file
         })
