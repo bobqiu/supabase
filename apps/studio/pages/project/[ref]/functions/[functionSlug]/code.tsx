@@ -171,10 +171,6 @@ const CodePage = () => {
       const filesWithRelPath = functionFiles
         .filter((file: { name: string; content: string }) => !!file.content.length)
         .map((file: { name: string; content: string }) => {
-          if (!file.name.startsWith(base_path)) {
-            return file
-          }
-
           file.name = relative(base_path, file.name)
           return file
         })

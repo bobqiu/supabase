@@ -7,6 +7,7 @@ import { edgeFunctionsKeys } from './keys'
 export type EdgeFunctionBodyVariables = {
   projectRef?: string
   slug?: string
+  entrypoint?: string
 }
 
 export type EdgeFunctionFile = {
@@ -59,14 +60,14 @@ export type EdgeFunctionBodyData = Awaited<ReturnType<typeof getEdgeFunctionBody
 export type EdgeFunctionBodyError = ResponseError
 
 export const useEdgeFunctionBodyQuery = <TData = EdgeFunctionBodyData>(
-  { projectRef, slug }: EdgeFunctionBodyVariables,
+  { projectRef, slug, entrypoint }: EdgeFunctionBodyVariables,
   {
     enabled = true,
     ...options
   }: UseQueryOptions<EdgeFunctionBodyData, EdgeFunctionBodyError, TData> = {}
 ) =>
   useQuery<EdgeFunctionBodyData, EdgeFunctionBodyError, TData>(
-    edgeFunctionsKeys.body(projectRef, slug),
+    edgeFunctionsKeys.body(projectRef, slug, entrypoint),
     ({ signal }) => getEdgeFunctionBody({ projectRef, slug }, signal),
     {
       enabled:

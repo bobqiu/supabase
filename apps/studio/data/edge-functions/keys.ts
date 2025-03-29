@@ -2,6 +2,6 @@ export const edgeFunctionsKeys = {
   list: (projectRef: string | undefined) => ['projects', projectRef, 'edge-functions'] as const,
   detail: (projectRef: string | undefined, slug: string | undefined) =>
     ['projects', projectRef, 'edge-function', slug] as const,
-  body: (projectRef: string | undefined, slug: string | undefined) =>
-    ['projects', projectRef, 'edge-function', slug, 'body'] as const,
+  body: (projectRef: string | undefined, slug: string | undefined, entrypoint: string | undefined) =>
+    ['projects', projectRef, 'edge-function', slug, 'body', entrypoint] as const,
 }
