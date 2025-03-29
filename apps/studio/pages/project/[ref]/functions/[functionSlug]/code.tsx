@@ -173,7 +173,7 @@ const CodePage = () => {
         .map((file: { name: string; content: string }) => {
           const common_path = common([base_path, file.name])
           if (common_path === "" || common_path ==="/tmp/") {
-            return file.name
+            return file
           }
 
           file.name = relative(base_path, file.name)
