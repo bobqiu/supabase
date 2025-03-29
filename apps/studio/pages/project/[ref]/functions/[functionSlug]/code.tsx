@@ -39,6 +39,7 @@ const CodePage = () => {
   } = useEdgeFunctionBodyQuery({
     projectRef: ref,
     slug: functionSlug,
+    entrypoint: selectedFunction?.entrypoint
   })
   const [files, setFiles] = useState<
     { id: number; name: string; content: string; selected?: boolean }[]
